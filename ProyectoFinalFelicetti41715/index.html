@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <title>Document</title>
+
+
+</head>
+
+<body><br>
+
+    <header class="py-3">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <div >
+                <button type="button" class="btn btn-sm btn-primary me-2" id='botonIniciar'name="botonIniciar" data-bs-toggle="modal" data-bs-target="#modalIniciar">Iniciar sesión</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-5" id='botonCrear'name="botonCrear" data-bs-toggle="modal" data-bs-target="#crear">Crear cuenta</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-5" id='botonCerrar'name="botonCerrar" disabled>Cerrar sesion</button>
+
+                <div id="pruebaCarrito" hidden="true" class='blog-header lh-1 py-3'>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <div id="bienvenida" class="me-5" ></div>
+
+                        <svg class="me-5" xmlns="http://www.w3.org/2000/svg" width="20" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                            <path type="button" data-bs-toggle="modal" data-bs-target="#modalCarrito" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="modal fade" id="modalCarrito" tabindex="-1" aria-labelledby="modalCarritoVer" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCarritoVer">Carrito de compras</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row text-center" id="carrito">
+                            <!-- Muestra lo que el usuario tiene que pagar -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <div class="b-divider"></div>
+
+    <!--Iniciar sesión -->
+    <form class="was-validated" id="iniciar">
+        <section class="modal fade" id="modalIniciar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalIniciar" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Iniciar sesión</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="mostrarIniciar">
+                        <div class="form-group">
+                            <label for="usuarioIng" class="form-label">Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                <input type="text" class="form-control" id="usuarioIng" name="usuarioIng" placeholder="Escriba su usuario" required>
+                            </div>
+                            <div class="form-text">No diferencia mayúsculas y minúsculas.</div>
+                        </div><br>
+
+                        <div class="form-group">
+                            <label for="contraseniaIng" class="form-label ">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseniaIng" name='contraseniaIng' placeholder="Escriba su contraseña" required>
+                            <div class="form-text">Diferencia mayúsculas y minúsculas.</div>
+                        </div><br>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary float-end" type="submit" id="botonIng" name="botonIng">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
+
+    <!-- Crear usuario -->
+    <form id="form">
+        <section class="modal fade" id="crear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Crear cuenta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body" id="mostrarCrear">
+
+                        <div class="col-md-6">
+                            <label for="nombreForm" class="form-label">Nombre</label>
+                            <input type="text" class="form-control text-capitalize" id="nombreForm" name="nombreForm" placeholder="Escriba su nombre" required>
+                        </div><br>
+
+                        <div class="col-md-6">
+                            <label for="apellidoForm" class="form-label">Apellido</label>
+                            <input type="text" class="form-control text-capitalize" id="apellidoForm" name='apellidoForm' placeholder="Escriba su apellido" required>
+                        </div><br>
+
+                        <div class="col-md-12">
+                            <label for="usuarioForm" class="form-label">Usuario</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                <input type="text" class="form-control" id="usuarioForm" aria-describedby="inputGroupPrepend" name='usuarioForm' placeholder="Escriba su usuario" required>
+                            </div>
+                            <div class="form-text">No diferencia mayúsculas y minúsculas.</div>
+                        </div><br>
+
+                        <div class="col-md-6">
+                            <label for="DNIForm" class="form-label">DNI</label>
+                            <input type="number" class="form-control" id="DNIForm" name='DNIForm' placeholder="Escriba su DNI" required>
+                        </div><br>
+
+                        <div class="col-md-12">
+                            <label for="emailForm" class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                    </svg>
+                                </span>
+                                <input type="email" class="form-control" id="emailForm" aria-describedby="inputGroupPrepend" name='emailForm' placeholder="Escriba su email" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+                            </div>
+                        </div><br>
+
+                        <div class="col-md-12">
+                            <label for="confEmailForm" class="form-label">Confirmar email</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="inputGroupPrepend">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
+                                    </svg>
+                                </span>
+                                <input type="email" class="form-control" id="confEmailForm" aria-describedby="inputGroupPrepend" name='confEmailForm' placeholder="Confirme su email" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+                            </div>
+                        </div><br>
+                        <p id="validarEmail"></p>
+
+                        <div class="col-md-6">
+                            <label for="contraseniaForm" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="contraseniaForm" name='contraseniaForm' placeholder="Escriba su contraseña"required>
+                            <div class="form-text">Diferencia mayúsculas y minúsculas.</div>
+                        </div><br>
+
+                        <label for="confContraseniaForm" class="form-label">Confirmar contraseña</label>
+                        <div class="col-md-6">
+                            <input type="password" class="form-control" id="confContraseniaForm" name='confContraseniaForm' placeholder="Confirme su contraseña" required>
+                        </div><br>
+                        <p id="validarContrasenia"></p>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-primary float-end" type="submit" id="boton" name="boton">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+
+    <br><br>
+
+    <!-- Acordeon clases, elegir o editar clases-->
+    <button class="btn btn-primary ms-5" type="button" id='anotarme' name="anotarme" data-bs-toggle="modal" data-bs-target="#anotarmeModal" hidden disabled ></button>
+    <section class="modal fade" id="anotarmeModal" tabindex="-1" aria-labelledby="anotarmeModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="anotarmeModal">Anotarme</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="mostrarAnotarme">
+                    <p>Seleccione el pack que desea comprar</p>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="1" name="status" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Pack 4 clases (válido una clase por semana, 4200$)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="2" name="status" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            Pack 8 clases (válido dos clases por semana, 6600$)
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="3" name="status" id="flexRadioDefault3">
+                        <label class="form-check-label" for="flexRadioDefault3">
+                            Pack 12 clases (válido tres clases por semana, 8900$
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="4" name="status" id="flexRadioDefault4">
+                        <label class="form-check-label" for="flexRadioDefault4">
+                            Pack 16 clases (válido cuatro clases por semana, 9300$)
+                        </label>
+                    </div>
+                    <br>
+
+                    <div id="cantidadClases"></div><br>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit" id="setear" name="setear">Aceptar pack</button>
+                    </div><br>
+
+                    <div class="accordion" id="accordionPanelsStayOpenExample" hidden="true">
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button id='botonPrimero' value="Tela" name='acordeon' class="accordion-button collapsed" aria-expanded="false" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne"  aria-controls="panelsStayOpen-collapseOne">
+                            Tela
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body" id="primerAcordeon">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Lunes de 18:00 a 20:00" id="primerHorarioTela">
+                                    <label id="primerLabelTela" class="form-check-label" for="primerHorarioTela">
+                                        Lunes de 18:00 a 20:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Martes de 20:00 a 22:00" id="segundoHorarioTela" >
+                                    <label id="segundoLabelTela" class="form-check-label" for="segundoHorarioTela">
+                                        Martes de 20:00 a 22:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Miércoles de 18:00 a 20:00" id="tercerHorarioTela" >
+                                    <label id="tercerLabelTela" class="form-check-label" for="tercerHorarioTela">
+                                        Miércoles de 18:00 a 20:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Jueves de 20:00 a 22:00" id="cuartoHorarioTela">
+                                    <label id="cuartoLabelTela" class="form-check-label" for="cuartoHorarioTela">
+                                        Jueves de 20:00 a 22:00
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                            <button id='botonSegundo' name='acordeon' value="Trapecio" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            Trapecio
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body"id="segundoAcordeon">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Lunes de 20:00 a 22:00" id="primerHorarioTrape">
+                                    <label id="primerLabelTrape" class="form-check-label" for="primerHorarioTrape">
+                                        Lunes de 20:00 a 22:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Martes de 18:00 a 20:00" id="segundoHorarioTrape" >
+                                    <label id="segundoLabelTrape" class="form-check-label" for="segundoHorarioTrape">
+                                        Martes de 18:00 a 20:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Miércoles de 20:00 a 22:00" id="tercerHorarioTrape" >
+                                    <label id="tercerLabelTrape" class="form-check-label" for="tercerHorarioTrape">
+                                        Miércoles de 20:00 a 22:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Jueves de 18:00 a 20:00" id="cuartoHorarioTrape">
+                                    <label id="cuartoLabelTrape" class="form-check-label" for="cuartoHorarioTrape">
+                                        Jueves de 18:00 a 20:00
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button id='botonTercero' name='acordeon' value="Aro" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                            Aro
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body"id="tercerAcordeon">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Lunes de 10:00 a 12:00" id="primerHorarioAro">
+                                    <label id="primerLabelAro" class="form-check-label" for="primerHorarioAro">
+                                        Lunes de 10:00 a 12:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Martes de 18:00 a 20:00" id="segundoHorarioAro" >
+                                    <label id="segundoLabelAro" class="form-check-label" for="segundoHorarioAro">
+                                        Martes de 18:00 a 20:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Miércoles de 10:00 a 12:00" id="tercerHorarioAro" >
+                                    <label id="tercerLabelAro" class="form-check-label" for="tercerHorarioAro">
+                                        Miércoles de 10:00 a 12:00
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name='statusCheck' value="Jueves de 18:00 a 20:00" id="cuartoCuartoAro">
+                                    <label id="cuartoLabelAro" class="form-check-label" for="cuartoCuartoAro">
+                                        Jueves de 18:00 a 20:00
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                            <button id='botonCuarto' name='acordeon' value="Flexibilidad" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                Flexibilidad
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-collapseFour">
+                                <div class="accordion-body"id="cuartoAcordeon">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name='statusCheck' value="Lunes de 18:00 a 20:00" id="primerHorarioFlexi">
+                                        <label id="primerLabelFlexi" class="form-check-label" for="primerHorarioFlexi">
+                                            Lunes de 18:00 a 20:00
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name='statusCheck' value="Martes de 20:00 a 22:00" id="segundoHorarioFlexi" >
+                                        <label id="segundoLabelFlexi" class="form-check-label" for="segundoHorarioFlexi">
+                                            Martes de 20:00 a 22:00
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name='statusCheck' value="Miércoles de 18:00 a 20:00" id="tercerHorarioFlexi" >
+                                        <label id="tercerLabelFlexi" class="form-check-label" for="tercerHorarioFlexi">
+                                            Miércoles de 18:00 a 20:00
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name='statusCheck' value="Jueves de 20:00 a 22:00" id="cuartoHorarioFlexi">
+                                        <label id="cuartoLabelFlexi" class="form-check-label" for="cuartoHorarioFlexi">
+                                            Jueves de 20:00 a 22:00
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="col-12">
+                            <button class="btn btn-primary" type="button" id="botonAceptarHorario" name="botonAceptarHorario">Aceptar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Botón para ver mi horario -->
+    <button class="btn btn-primary" id="verMiHorario" disabled hidden="true" >Ver mi horario</button>
+
+    <!-- Ver todos los horarios -->
+    <button class="btn btn-primary ms-5" type="button" id='botonHorario'name="botonHorario" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Ver horarios</button>
+    <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Horarios:</h5>
+                </div>
+                <div class="offcanvas-body" id="mostrarHorario">
+                    <div id="listado">
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Mandar mail -->
+    <section class="modal fade" id="contacto" tabindex="-1" role="dialog" aria-labelledby="contactoVer" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactoVer">Contacto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="contactoModal">
+                    <form id="contact-form">
+
+                        <div class="form-group">
+                            <label for="user_name" class="form-label">Nombre</label>
+                            <input type="text" class="form-control text-capitalize" id="user_name" name="user_name" required>
+                        </div><br>
+
+                        <div class="form-group">
+                            <label for="user_apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control text-capitalize" id="user_apellido" name='user_apellido' required>
+                        </div><br>
+
+                        <div class="form-group">
+                            <label for="user_email" class="form-label">Email</label>
+                            <input type="email" class="form-control" aria-describedby="inputGroupPrepend" id="user_email" name="user_email" pattern="^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$" required>
+                        </div><br>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Mensaje</label>
+                            <div class="input-group">
+                                <textarea class="form-control" id="message" name="message" rows="5" cols="100" required></textarea>
+                            </div>
+                        </div><br>
+
+                        <input type="hidden" name="contact_number">
+
+                        <div class="modal-footer">
+                            <button id="enviarConsulta" class="btn btn-primary float-end" type="submit">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-muted py-5">
+        <button type="button" class="btn btn-primary ms-5" data-bs-toggle="modal" data-bs-target="#contacto">Contacto</button>
+        <p class="float-end me-5">
+            <a href="#">Volver arriba</a>
+        </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script type="storage.js" type="module"></script>
+    <script type="habilitarMostrarBoton.js" type="module"></script>
+    <script type="validar.js" type="module"></script>
+    <script type="contacto.js" type="module"></script>
+    <script type="iniciarSesion.js" type="module"></script>
+    <script type="elegirClase" type="module"></script>
+    <script src="main.js" type="module"></script>
+</body>
+</html>

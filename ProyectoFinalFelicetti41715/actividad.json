@@ -1,0 +1,30 @@
+[
+    {
+        "disciplina": "Tela",
+        "horario1": "Lunes de 18:00 a 20:00",
+        "horario2": "Martes de 20:00 a 22:00",
+        "horario3": "Miércoles de 18:00 a 20:00",
+        "horario4": "Jueves de 20:00 a 22:00"
+    },
+    {
+        "disciplina": "Trapecio",
+        "horario1": "Lunes de 20:00 a 22:00",
+        "horario2": "Martes de 18:00 a 20:00",
+        "horario3": "Miércoles de 20:00 a 22:00",
+        "horario4": "Jueves de 18:00 a 20:00"
+    },
+    {
+        "disciplina": "Aro",
+        "horario1": "Lunes de 10:00 a 12:00",
+        "horario2": "Martes de 18:00 a 20:00",
+        "horario3": "Miércoles de 10:00 a 12:00",
+        "horario4": "Jueves de 18:00 a 20:00"
+    },
+    {
+        "disciplina": "Flexibilidad",
+        "horario1": "Lunes de 18:00 a 20:00",
+        "horario2": "Martes de 20:00 a 22:00",
+        "horario3": "Miércoles de 18:00 a 20:00",
+        "horario4": "Jueves de 20:00 a 22:00"
+    }
+]
